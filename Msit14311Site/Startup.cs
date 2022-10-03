@@ -50,7 +50,7 @@ namespace Msit14311Site
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=A}/{action=Second}/{id?}");
             });
         }
     }

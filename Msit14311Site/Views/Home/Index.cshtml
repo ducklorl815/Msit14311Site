@@ -1,8 +1,47 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section Styles{
+    <style>
+       h1{
+           color:aqua
+       }
+    </style>
+}
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <u1 id="ul1"></u1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@section Scripts{
+    <script>
+        console.log("hi,babacoco");
+        var emps = [
+            { "name": "Tom", "workYears": 3, "salary": 35000 },
+            { "name": "Jack", "workYears": 5, "salary": 40000 },
+            { "name": "Mary", "workYears": 7, "salary": 45000 }
+        ];
+        //讀取資料
+        const theUl = document.querySelector("#ul1")
+        //建立一個空物件
+        const docfrag = document.createDocumentFragment()
+        for (let i = 0; i < emps.length; i++) {
+            //console.log(emps[i].name);
+            //console.log(emps[i].workYears);
+            //console.log(emps[i].salary);
+
+            //解構賦值 Destructuring Assignement
+            //顯示資料 DOM
+            const txtLi = document.createTextNode(emps[i].name + " , " + emps[i].workYears + " , " + emps[i].salary)//建立文字節點
+            const eleLi = document.createElement("li") //<li><li>
+            eleLi.appendChild(txtLi)//<li>Jack<li>
+            docfrag.appendChild(eleLi);
+
+        }
+        theUl.appendChild(docfrag);
+
+    </script>
+}
+
