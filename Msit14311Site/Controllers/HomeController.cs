@@ -22,7 +22,10 @@ namespace Msit14311Site.Controllers
         {
             return View();
         }
-
+        public IActionResult Register()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
