@@ -37,6 +37,28 @@
     <script>
         const btn = document.querySelector("#buttonSubmit")
         const divMessage = document.querySelector("#div1")
+        let txtbox = document.querySelector("#InputName").value
+        txtName.addEventListener("blur", even => {
+            even.preventDefault() //預設行為停止掉
+            const xhr = new XMLHttpRequest();
+
+            //步驟三 接收資料
+            xhr.addEventListener("load",()=> {
+                const data = xhr.responseText
+                divMessage.textContent = `${data}`
+            });
+            //步驟二 發出要求
+            const url = @Url.Action("action","Home")
+           
+
+            xhr.open("POST", url)
+            xhr.send(txtbox)
+        })
+
+
+
+
+
         btn.addEventListener("click", evt => {
             evt.preventDefault() //預設行為停止掉
             const formData = new FormData(document.userInfo);//將userInfo表單中的資料放到formData變數中
