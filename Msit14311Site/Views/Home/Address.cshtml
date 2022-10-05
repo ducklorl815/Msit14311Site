@@ -26,21 +26,7 @@
             const opt = new Option(city, city)
             selCity.options.add(opt)
             console.log(datas)
-        })
-    //step5
-    })
-    //step2
-        url = "@Url.Content("~/A/city")"
-        @*xhr.open("GET", "@Url.Content("~/A/city")")//A/City*@
-
-        selCity.addEventListener("change", () => {
-            const City = selCity.options[selCity.selectedIndex].value;
-        })
-
-        xhr.open("GET", url)
-        xhr.send()
-        //==================City End===============================
-        //==================Site Start===============================
+    //==================Site Start===============================
     //step1
     const xhr = new XMLHttpRequest()
 
@@ -78,5 +64,20 @@
         xhr.open("GET", url)
         xhr.send()
         //==================Site End===============================
+        })
+    //step5
+    })
+    //step2
+        url = "@Url.Content("~/A/city")"
+        @*xhr.open("GET", "@Url.Content("~/A/city")")//A/City*@
+
+        selCity.addEventListener("change", () => {
+            const City = selCity.options[selCity.selectedIndex].value;
+        })
+
+        xhr.open("GET", url)
+        xhr.send()
+        //==================City End===============================
+
     </script>
 }
