@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Address";
+}
+
+<h1>Address</h1>
+<select id="select1"></select>
+<select id="select2"></select>
+<select id="select3"></select>
+@section Scripts{ 
+    <script>
+    const selCity = document.querySelector("#select1")
+    const selSite = document.querySelector("#select2")
+    const selRoad = document.querySelector("#select3")
+    let url =""
+    //==================City Start===============================
+    //step1
+    const xhr = new XMLHttpRequest()
+
+    //step3
+    xhr.addEventListener("load",()=> {
+        const datas = JSON.parse(xhr.responseText)
+    //step4
+        datas.forEach(city => {
+            console.log(city)
+            const opt = new Option(city, city)
+            selCity.options.add(opt)
+            console.log(datas)
+        })
+    //step5
+    })
+    //step2
+        url = "@Url.Content("~/A/city")"
+        @*xhr.open("GET", "@Url.Content("~/A/city")")//A/City*@
+
+        selCity.addEventListener("change", () => {
+            const City = selCity.options[selCity.selectedIndex].value;
+        })
+
+        xhr.open("GET", url)
+        xhr.send()
+        //==================City End===============================
+        //==================Site Start===============================
+    //step1
+    const xhr = new XMLHttpRequest()
+
+    //step3
+    xhr.addEventListener("load",()=> {
+        const datas = JSON.parse(xhr.responseText)
+    //step4
+        datas.forEach(city => {
+            console.log(city)
+            const opt = new Option(city, city)
+            selCity.options.add(opt)
+            console.log(datas)
+        })
+    //step5
+    })
+    //step2
+        url = "@Url.Content("~/A/city")"
+/*        const params = `?keyword=${City}`*/
+        @*xhr.open("GET", "@Url.Content("~/A/city")")//A/City*@
+
+        selCity.addEventListener("change", () => {
+            const City = selCity.options[selCity.selectedIndex].value;
+            const params = `Site?city=${City}`
+            url = "@Url.Content("~/A/")" + params;
+            console.log(url);
+        })
+
+        //selSite.addEventListener("change", () => {
+        //    const Site = selSite.options[City.selectedIndex].value
+        //    selRoad.addEventListener("change", () => {
+        //        const Road = selRoad.options[Site.selectedIndex].value
+
+        //    })
+        //})
+        xhr.open("GET", url)
+        xhr.send()
+        //==================Site End===============================
+    </script>
+}

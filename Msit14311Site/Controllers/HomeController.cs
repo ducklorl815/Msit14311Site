@@ -31,6 +31,11 @@ namespace Msit14311Site.Controllers
             return View();
         }
 
+        public IActionResult Address()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

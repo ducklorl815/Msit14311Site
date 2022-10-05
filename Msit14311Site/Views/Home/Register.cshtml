@@ -7,7 +7,7 @@
     <div class="col-3"></div>
     <div class="col-6">
         @* name=abc *@
-        <form name="userInfo" method="post" action="~/A/register">
+        <form name="userInfo" method="post" action="~/A/register" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="InputName">姓名</label>
                 <input type="text" class="form-control" id="InputName" name="Name">
@@ -38,9 +38,13 @@
         const btn = document.querySelector("#buttonSubmit")
         const divMessage = document.querySelector("#div1")
         let txtbox = document.querySelector("#InputName").value
-        txtName.addEventListener("blur", even => {
+        const xhr = new XMLHttpRequest();
+
+
+        @*txtName.addEventListener("blur", even => {
+            console.log("blur");
             even.preventDefault() //預設行為停止掉
-            const xhr = new XMLHttpRequest();
+
 
             //步驟三 接收資料
             xhr.addEventListener("load",()=> {
@@ -48,27 +52,36 @@
                 divMessage.textContent = `${data}`
             });
             //步驟二 發出要求
-            const url = @Url.Action("action","Home")
-           
+            const url = @Url.Content("data)
+
+
 
             xhr.open("POST", url)
             xhr.send(txtbox)
-        })
-
-
-
-
+            })*@
 
         btn.addEventListener("click", evt => {
-            evt.preventDefault() //預設行為停止掉
-            const formData = new FormData(document.userInfo);//將userInfo表單中的資料放到formData變數中
-            const xhr = new XMLHttpRequest()
-            xhr.addEventListener("load", () => {
-                const data = xhr.responseText
-                divMessage.textContent = data
-            })
-            xhr.open("POST", document.userInfo.action) //"/A/register"
-            xhr.send(formData)
+            evt.preventDefault();
+            const formData = new FormData(document.userInfo);
+
+            //Fetch 將資料送到Sever端
+            fetch(document.userInfo.action, {
+                method: "POST",
+                body: formData
+            }).then(response => response.text())
+                .then(data => divMessage.textContent = data);
+
         })
+
+
+                ////const xhr = new XMLHttpRequest()
+                //console.log("AAA");
+                //xhr.addEventListener("load", () => {
+                //    const data = xhr.responseText
+                //    divMessage.textContent = `${data}`
+                //})
+                //xhr.open("POST", document.userInfo.action) //"/A/register"
+                //xhr.send(formData)
+            
     </script>
 }

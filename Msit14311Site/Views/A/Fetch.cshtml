@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "Fetch";
+}
+
+<h1>Fetch</h1>
+<div class="alert alert-primary" id="div1"></div>
+<select id="select1"></select>
+<img id="img1" class="img-thumbnail w-50" />
+
+@section Scripts
+{
+    <script>
+    const divMessage = document.querySelector("#div1");
+    const imgPhoto = document.querySelector("#img1");
+    const selCity = document.querySelector("#select1");
+    @*fetch("@Url.Content("~/A/index")")
+        .then(response => {
+            console.log(response)
+            console.log(response.ok) //true or false
+            console.log(response.status) //200
+            console.log(response.headers.get("content-encoding"))
+            console.log(response.headers.get("content-type"))
+            console.log(response.headers.get("date"))
+            console.log(response.body)
+            console.log(response.text()) //promise
+            return response.text()
+            /*確認Server程式執行沒問題*/
+            if (response.ok) {
+
+            } else {
+
+            }
+        })
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error => {
+            console.log(error)
+        })*@
+
+    fetch("@Url.Content("~/A/Index")")
+        .then(response => response.text())
+        .then(data => divMessage.textContent = data)
+        .catch(err => console.log(err));
+
+    fetch("@Url.Content("~/members/showphoto/3")")
+        .then(response => response.blob())
+        .then(datas => imgPhoto.src = URL.createObjectURL(datas))
+    @*fetch("@Url.Content("~/A/City")")
+        .then(response => response.json())
+        .then(datas => {
+            datas.forEach(city => {
+                console.log(city)
+                const opt = new Option(city, city)
+                selCity.options.add(opt)
+                console.log(datas)
+            })
+        })*@
+                async function LoadCities() {
+                let response = await fetch("@Url.Content("~/A/city")")
+                let datas = await response.json()
+                datas.forEach(city => {
+                    const opt = new Option(city, city)
+                    selCity.options.add(opt)
+                })
+            }
+
+            LoadCities()
+    </script>
+
+}
