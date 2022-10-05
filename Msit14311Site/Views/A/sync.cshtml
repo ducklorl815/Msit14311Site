@@ -2,12 +2,16 @@
 @{
     ViewData["Title"] = "sync";
 }
+@section Styles{ 
+<style>
 
-<h1>sync</h1>
+</style>
+}
+<h1 class="badge bg-secondary">sync</h1>
 @*<div class="alert alert-primary" id="div1"></div>*@
-<select id="select1"></select>
-<select id="select2"></select>
-<select id="select3"></select>
+<select id="select1" class="form-select form-select-lg mb-3"></select>
+<select id="select2" class="form-select form-select-lg mb-3"></select>
+<select id="select3" class="form-select form-select-lg mb-3"></select>
 @*<img id="img1" class="img-thumbnail w-50" />*@
 
 @section Scripts
@@ -16,7 +20,6 @@
         const selCity = document.querySelector("#select1")
         const selSite = document.querySelector("#select2")
         const selRoad = document.querySelector("#select3")
-        let urlstring = "";
 
         async function LoadCities() {
             let response = await fetch("@Url.Content("~/A/city")")
@@ -31,21 +34,19 @@
 
         selCity.addEventListener("change", () => {
             let City = selCity.options[selCity.selectedIndex].value;
-            removeOptions(selRoad)
-            //urlstring = "~/A/Site?city=" + City;
+            selRoad.options.length = 0;
             LoadSites(City);
         })
         selSite.addEventListener("change", () => {
             let Site = selSite.options[selSite.selectedIndex].value;
             console.log(Site)
-            //urlstring = "~/A/Road?Site=" + Site;
             LoadRoad(Site);
         })
 
         async function LoadSites(City) {
             let response = await fetch("@Url.Content("~/A/Site?city=")" +City)
             let datas = await response.json()
-            removeOptions(selSite)
+            selSite.options.length = 0;
             datas.forEach(site => {
                 const opt = new Option(site, site)
                 selSite.options.add(opt)
@@ -55,20 +56,14 @@
         async function LoadRoad(Site) {
             let response = await fetch("@Url.Content("~/A/road?Sites=")" + Site)
             let datas = await response.json()
-            removeOptions(selRoad)
+            selRoad.options.length = 0;
             datas.forEach(road => {
                 const opt = new Option(road, road)
                 selRoad.options.add(opt)
             });
         }
 
-        async function removeOptions(selectElement) {
-            let i, L = selectElement.options.length - 1;
-            for (i = L; i >= 0; i--) {
-                selectElement.remove(i);
-            }
-        }
-
         LoadCities();
     </script>
+    <script src="~/js/bootstrap.js"></script>
 }
