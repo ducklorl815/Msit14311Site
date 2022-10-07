@@ -22,6 +22,8 @@ namespace Msit14311Site.Controllers
         {
             return View();
         }
+
+
         public IActionResult Register()
         {
             return View();
@@ -41,6 +43,7 @@ namespace Msit14311Site.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
         public IActionResult action(string txtbox)
         {
             DemoContext db = new();
@@ -52,6 +55,15 @@ namespace Msit14311Site.Controllers
                 return Content("已經有這個帳號", "text/plain",System.Text.Encoding.UTF8);
             }
             return Content("可以使用", "text/plain", System.Text.Encoding.UTF8);
+        }
+
+        public IActionResult History()
+        {
+            return View();
+        }
+        public IActionResult AutoComputer()
+        {
+            return View();
         }
     }
 }
