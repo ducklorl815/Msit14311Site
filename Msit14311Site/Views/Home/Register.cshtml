@@ -11,17 +11,17 @@
             <div class="form-group">
                 <label for="InputName">姓名</label>
                 <input type="text" class="form-control" id="InputName" name="Name">
-                <small id="nameHelp" class="form-text text-muted"></small>
+                <small id="nameHelp" class="form-text style="color:black"">666</small>
             </div>
             <div class="form-group">
                 <label for="InputEmail">電子郵件</label>
                 <input type="email" class="form-control" id="InputEmail" name="Email">
-                <small id="emailHelp" class="form-text text-muted"></small>
+                <small id="emailHelp" class="form-text"></small>
             </div>
             <div class="form-group">
                 <label for="InputAge">年紀</label>
                 <input type="number" class="form-control" id="InputAge" name="Age">
-                <small id="ageHelp" class="form-text text-muted"></small>
+                <small id="ageHelp" class="form-text"></small>
             </div>
             <div class="form-group">
                 <label for="InputFile">選擇檔案</label>
@@ -39,6 +39,7 @@
     <script>
         const btn = document.querySelector("#buttonSubmit")
         const divMessage = document.querySelector("#div1")
+        const nameHelp = document.querySelector("#nameHelp")
         let txtName = document.querySelector("#InputName")
         let txtEmail = document.querySelector("#InputEmail")
         let txtAge = document.querySelector("#InputAge")
@@ -47,46 +48,34 @@
 
         txtName.addEventListener("blur", async () => {
 
-            let response = await fetch("@Url.Content("~/A/CheckAccount")" + `FileName=${txtName.value}`)
+            let response = await fetch("@Url.Content("~/A/CheckAccount")" + `?txtname=${txtName.value}`)
             let data = await response.text()
-
+            console.log(data)
             if (txtName.value == ``) {
                 nameHelp.textContent = "此欄位不可空白"
             }
-            else if (txtName.value == `True`) {
-                nameHelp.value = "此帳號已重複"
+            else if (data== `True`) {
+                nameHelp.textContent = "此帳號已重複"
             } else {
-                nameHelp.value = ``;
+                nameHelp.textContent = `帳號可以使用`;
             }
         })
 
         txtEmail.addEventListener("blur", async () => {
 
-            let response = await fetch("@Url.Content("~/A/CheckAccount")" + `FileEmail=${txtEmail.value}`)
-            let data = await response.text()
-
             if (txtEmail.value == ``) {
                 emailHelp.textContent = "此欄位不可空白"
-            }
-            else if (txtEmail.value == `True`) {
-                emailHelp.value = "此帳號已重複"
             } else {
-                emailHelp.value = ``;
+                emailHelp.textContent = '';
             }
         })
 
         txtAge.addEventListener("blur", async () => {
 
-            let response = await fetch("@Url.Content("~/A/CheckAccount")" + `FileAge=${txtAge.value}`)
-            let data = await response.text()
-
             if (txtAge.value == ``) {
                 ageHelp.textContent = "此欄位不可空白"
-            }
-            else if (txtAge.value == `True`) {
-                ageHelp.value = "此帳號已重複"
             } else {
-                ageHelp.value = ``;
+                ageHelp.textContent = '';
             }
         })
         //    //步驟三 接收資料

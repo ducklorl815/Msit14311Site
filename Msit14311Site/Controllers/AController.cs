@@ -104,7 +104,7 @@ namespace Msit14311Site.Controllers
         }
         public IActionResult CheckAccount(string txtname)
         {
-            bool check = _context.Members.Any(p => p.FileName == txtname);
+            bool check = _context.Members.Any(p => p.Name == txtname);
 
             return Content(check.ToString(),"text/plain");
 
