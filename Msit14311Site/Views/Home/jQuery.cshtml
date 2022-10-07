@@ -1,4 +1,5 @@
 ﻿
+
 @{
     ViewData["Title"] = "jQuery";
 }
@@ -16,23 +17,44 @@
 @section Scripts{
     <script>
         $('#buttonGet').click(function () {
-            $('#divAlert').text("GET")
+            $.get('@Url.Content("~/A/Index")', { "keyword": "Jack" }, function (data) {
+                $('#divAlert').text(data)
+            })
         })
         $('#buttonPost').click(function () {
-            $('#divAlert').text("POST")
+            $.post('@Url.Content("~/A/Index")', { "keyword": "Mary" }, function (data) {
+                $('#divAlert').text(data)
+            })
         })
         $('#buttonJson').click(function () {
-            $('#divAlert').text("JSON")
+            $.getJSON('@Url.Content("~/A/site")', { "city": "嘉義市" }, function (data) {
+                $.each(data, function (idx, site) {
+                    console.log(site)
+                })
+                $('#divAlert').text("JSON")
+            })
         })
         $('#buttonLoad').click(function () {
             $('#divAlert').text("LOAD")
         })
         $('#buttonAjax').click(function () {
+            $.ajax({
+                url: '@Url.Content("~/A/site")',
+                type: 'GET',
+                data: {"city":"臺北市"},
+                dataType:'json'
+            }).done(data => {
+                $.each(data, function (idx, site) {
+                    console.log(site);
+                })
+            })
             $('#divAlert').text("AJAX")
         })
         $('#buttonCors').click(function () {
+            $.getJSON('https://localhost:44327/api/Shippers', {}, function (data) {
+                console.log(data)
+            })
             $('#divAlert').text("CORs")
         })
-
     </script>
 }

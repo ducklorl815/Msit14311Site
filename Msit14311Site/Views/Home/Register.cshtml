@@ -11,15 +11,17 @@
             <div class="form-group">
                 <label for="InputName">姓名</label>
                 <input type="text" class="form-control" id="InputName" name="Name">
-                <small id="emailHelp" class="form-text text-muted"></small>
+                <small id="nameHelp" class="form-text text-muted"></small>
             </div>
             <div class="form-group">
                 <label for="InputEmail">電子郵件</label>
                 <input type="email" class="form-control" id="InputEmail" name="Email">
+                <small id="emailHelp" class="form-text text-muted"></small>
             </div>
             <div class="form-group">
                 <label for="InputAge">年紀</label>
                 <input type="number" class="form-control" id="InputAge" name="Age">
+                <small id="ageHelp" class="form-text text-muted"></small>
             </div>
             <div class="form-group">
                 <label for="InputFile">選擇檔案</label>
@@ -37,41 +39,76 @@
     <script>
         const btn = document.querySelector("#buttonSubmit")
         const divMessage = document.querySelector("#div1")
-        let txtbox = document.querySelector("#InputName").value
+        let txtName = document.querySelector("#InputName")
+        let txtEmail = document.querySelector("#InputEmail")
+        let txtAge = document.querySelector("#InputAge")
         const xhr = new XMLHttpRequest();
 
 
-        @*txtName.addEventListener("blur", even => {
-            console.log("blur");
-            even.preventDefault() //預設行為停止掉
+        txtName.addEventListener("blur", async () => {
 
+            let response = await fetch("@Url.Content("~/A/CheckAccount")" + `FileName=${txtName.value}`)
+            let data = await response.text()
 
-            //步驟三 接收資料
-            xhr.addEventListener("load",()=> {
-                const data = xhr.responseText
-                divMessage.textContent = `${data}`
-            });
-            //步驟二 發出要求
-            const url = @Url.Content("data)
-
-
-
-            xhr.open("POST", url)
-            xhr.send(txtbox)
-            })*@
-
-        btn.addEventListener("click", evt => {
-            evt.preventDefault();
-            const formData = new FormData(document.userInfo);
-
-            //Fetch 將資料送到Sever端
-            fetch(document.userInfo.action, {
-                method: "POST",
-                body: formData
-            }).then(response => response.text())
-                .then(data => divMessage.textContent = data);
-
+            if (txtName.value == ``) {
+                nameHelp.textContent = "此欄位不可空白"
+            }
+            else if (txtName.value == `True`) {
+                nameHelp.value = "此帳號已重複"
+            } else {
+                nameHelp.value = ``;
+            }
         })
+
+        txtEmail.addEventListener("blur", async () => {
+
+            let response = await fetch("@Url.Content("~/A/CheckAccount")" + `FileEmail=${txtEmail.value}`)
+            let data = await response.text()
+
+            if (txtEmail.value == ``) {
+                emailHelp.textContent = "此欄位不可空白"
+            }
+            else if (txtEmail.value == `True`) {
+                emailHelp.value = "此帳號已重複"
+            } else {
+                emailHelp.value = ``;
+            }
+        })
+
+        txtAge.addEventListener("blur", async () => {
+
+            let response = await fetch("@Url.Content("~/A/CheckAccount")" + `FileAge=${txtAge.value}`)
+            let data = await response.text()
+
+            if (txtAge.value == ``) {
+                ageHelp.textContent = "此欄位不可空白"
+            }
+            else if (txtAge.value == `True`) {
+                ageHelp.value = "此帳號已重複"
+            } else {
+                ageHelp.value = ``;
+            }
+        })
+        //    //步驟三 接收資料
+        //    xhr.addEventListener("load",()=> {
+        //        const data = xhr.responseText
+        //        divMessage.textContent = `${data}`
+        //    });
+        //    //步驟二 發出要求
+        //    })
+
+        //btn.addEventListener("click", evt => {
+        //    evt.preventDefault();
+        //    const formData = new FormData(document.userInfo);
+
+        //    //Fetch 將資料送到Sever端
+        //    fetch(document.userInfo.action, {
+        //        method: "POST",
+        //        body: formData
+        //    }).then(response => response.text())
+        //        .then(data => divMessage.textContent = data);
+
+        //})
 
 
                 ////const xhr = new XMLHttpRequest()
@@ -82,6 +119,6 @@
                 //})
                 //xhr.open("POST", document.userInfo.action) //"/A/register"
                 //xhr.send(formData)
-            
+
     </script>
 }

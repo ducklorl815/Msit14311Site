@@ -13,10 +13,12 @@ namespace Msit14311Site.Controllers
     {
         private readonly IWebHostEnvironment _host;
         private readonly DemoContext _context;
-        public AController(IWebHostEnvironment host, DemoContext context)
+        private readonly NorthwindContext _db;
+        public AController(IWebHostEnvironment host, DemoContext context,NorthwindContext db)
         {
             _host = host;
             _context = context;
+            _db = db;
         }
         public IActionResult Index(string keyword)
         {
@@ -42,6 +44,7 @@ namespace Msit14311Site.Controllers
             return View();
 
         }
+
         public IActionResult sync()
         {
             return View();
@@ -99,6 +102,13 @@ namespace Msit14311Site.Controllers
             //return Content(info, "text/plain");
             return Content(member.Name, "text/plain");
         }
+        public IActionResult CheckAccount(string txtname)
+        {
+            bool check = _context.Members.Any(p => p.FileName == txtname);
+
+            return Content(check.ToString(),"text/plain");
+
+        }
         public IActionResult City()
         {
             var cities = _context.Addresses.Select(a => a.City).Distinct();
@@ -114,5 +124,11 @@ namespace Msit14311Site.Controllers
             var Road = _context.Addresses.Where(a => a.SiteId == Sites).Select(a => a.Road).Distinct();
             return Json(Road);
         }
+        public IActionResult Products(string keyword)
+        {
+            var q = _db.Products.Where(p => p.ProductName.Contains(keyword)).Select(p => p.ProductName);
+            return Json(q);
+        }
+
     }
 }

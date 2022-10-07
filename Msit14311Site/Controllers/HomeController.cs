@@ -65,5 +65,9 @@ namespace Msit14311Site.Controllers
         {
             return View();
         }
+        public IActionResult jQuery()
+        {
+            return View();
+        }
     }
 }

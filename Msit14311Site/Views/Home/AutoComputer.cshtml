@@ -25,26 +25,39 @@
 </div>
 
 @section Scripts{ 
-<script src="~/js/travel.js"></script>
+@*<script src="~/js/travel.js"></script>*@
 <script>
       //keydown keyup keypress input
     const inputText = document.querySelector("#autoComplete")
     const listData = document.querySelector(".list-group")
     listData.style.display = "none";
 
-        inputText.addEventListener("input", () => {
+        inputText.addEventListener("input", async () => {
             const keyword = inputText.value
             listData.style.display = "block";
         //找到字就回傳字的索引值，找不到就回傳-1
-            let results = DATAS.filter(data => data.Name.indexOf(keyword) !== -1)
-            let htmDatas = results.map(data => {
+        //    let results = DATAS.filter(data => data.Name.indexOf(keyword) !== -1)
+        //    let htmDatas = results.map(data => {
+        //        return (
+        //            `
+        //        <button type="button" onclick="read(event)" class="list-group-item list-group-item-action">${data.Name}</button>     
+        //        `
+        //            )
+        //        })
+        //        listData.innerHTML = htmDatas.join("")
+        //})
+
+            //ajax
+            let response = await fetch("@Url.Content("~/A/products")"+`?keyword=${keyword}`) ///A/products?keyword=ca
+            let result = await response.json()
+            let htmDatas = result.map(data => {
                 return (
                     `
-                <button type="button" onclick="read(event)" class="list-group-item list-group-item-action">${data.Name}</button>     
-                `
-                    )
-                })
-                listData.innerHTML = htmDatas.join("")
+                <button type="button" onclick="read(event)" class="list-group-item list-group-item-action">${data}</button>     
+                    `
+                )
+            })
+            listData.innerHTML = htmDatas.join("")
         })
         function read(evt) {
             inputText.value = evt.target.textContent
